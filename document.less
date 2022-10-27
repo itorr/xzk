@@ -37,6 +37,7 @@ h1{
         margin: 0;
         padding: 0 0 4px;
         color: #666;
+        display: none;
     }
 }
 .ui-input{
@@ -58,9 +59,24 @@ h1{
     margin: 0 4px;
     border: 0;
     border-radius: 3px;
-    background: #222;
     color: #FFF;
     cursor: pointer;
+    background: #222;
+    &:disabled{
+        background: #666;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+.generate-btn{
+    &:before{
+        content: '生成斜着看图片';
+    }
+    &:disabled{
+        &:before{
+            content: '生成成功，长按或右键存图';
+        }
+    }
 }
 @media (max-width: 600px) {
     .ui-input{

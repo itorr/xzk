@@ -98,15 +98,27 @@ const generatePerspectiveTextCanvas = textCanvas=>{
     ).update()
     return textGlfxCanvas
 }
-const generate = _=>{
+let lastGenerateTexts;
+const getTexts = _=>{
     const text1 = text1El.value.trim() || text1El.getAttribute('placeholder');
     const text2 = text2El.value.trim();
     const tip = tipEl.value.trim() || tipEl.getAttribute('placeholder');
+    return [text1,text2,tip];
+}
+const generate = _=>{
+    const texts = getTexts();
+    const [text1,text2,tip] = texts;
+
+    const generateTexts = texts.join(',');
+
+    if(lastGenerateTexts === generateTexts) return;
+
+    lastGenerateTexts = generateTexts;
 
     ctx.fillStyle = '#FFF';
     ctx.fillRect(0,0,width,width);
 
-    const text1Canvas = generateTextCanvas(text1,1000,1);
+    const text1Canvas = generateTextCanvas(text1,1200,1);
     const text1GlfxCanvas = generatePerspectiveTextCanvas(text1Canvas);
     ctx.drawImage(
         text1GlfxCanvas,
@@ -144,21 +156,42 @@ const generate = _=>{
     }
 
     
-    const tipCanvas = generateTextCanvas(tip,80);
-    ctx.drawImage(
-        tipCanvas,
-        0,0,
-        tipCanvas.width,tipCanvas.height,
-        width * 0.2,width * 0.85,
-        width * 0.6, width * 0.14
-    )
+
+
+    ctx.save();
+
+    ctx.font = `bold 120px sans-serif`;
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#000';
+    ctx.lineCap  = 'round';
+    ctx.lineJoin = 'round';
+    ctx.textAlign = 'center';
+
+    ctx.fillText(
+        tip,
+        width / 2, width * 0.917,
+        width * 0.8
+    );
+    ctx.restore();
 
     outputImageEl.src = canvas.toDataURL();
 
-    
+    oninput();
 };
 
+const oninput = _=>{
+    const texts = getTexts();
+    const generateTexts = texts.join(',');
+
+    const haveUpdate = lastGenerateTexts === generateTexts;
+
+    generateBtn.disabled = haveUpdate;
+};
 
 generate();
 
 generateBtn.onclick = generate
+
+text1El.oninput = oninput;
+text2El.oninput = oninput;
+tipEl.oninput = oninput;
