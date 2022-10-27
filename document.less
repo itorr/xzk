@@ -1,6 +1,6 @@
 html{
     font: 14px/1 sans-serif;
-    background: #AAA;
+    background: #999;
     color: #111;
 }
 body{
@@ -15,12 +15,41 @@ h1{
     font-size: 3em;
 }
 .output-box{
+    position: relative;
+    width: 600px;
+    max-width: 100%;
+    margin: 0 auto;
     img{
         display: block;
-        width: 600px;
-        max-width: 100%;
-        margin: 0 auto;
+        width: 100%;
         background: #FFF;
+    }
+    .long-press-tip{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 4px 10px;
+        &:before{
+            content: '';
+            display: block;
+            width: 46px;
+            height: 46px;
+            border-radius: 80px;
+            box-shadow:0 0 0 1px #000 inset;
+        }
+        &:after{
+            content: '长按';
+            font-size: 12px;
+            line-height: 20px;
+        }
+        opacity: 0;
+        pointer-events: none;
+        animation: opa 3s infinite;
+    }
+    @keyframes opa {
+        70%{
+            opacity: 1;
+        }
     }
 }
 
