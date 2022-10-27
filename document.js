@@ -1,5 +1,8 @@
 
 const width = 1200;
+const perspective = 0.15;
+const textFontSize = 1200;
+const xScale = 1;
 
 
 
@@ -58,15 +61,15 @@ const generateTextCanvas = (text,fontSize,isBox)=>{
         metrics,
         width,
         height
-    } = measureText(ctx,text,fontSize);
+    } = measureText(ctx,text,fontSize * xScale);
 
     let maxWidth;
 
     if(isBox){
-        maxWidth = fontSize
+        maxWidth = fontSize * xScale
     }
 
-    textCanvas.width = isBox?fontSize:width;
+    textCanvas.width = isBox ? maxWidth : width;
     textCanvas.height = height//fontSize;//height;
 
     setCtxConfig(ctx);
@@ -77,7 +80,6 @@ const generateTextCanvas = (text,fontSize,isBox)=>{
     
 }
 
-const perspective = 0.15;
 const textGlfxCanvas = fx.canvas();
 const generatePerspectiveTextCanvas = textCanvas=>{
     const textMargin = textCanvas.width * perspective;
@@ -118,7 +120,7 @@ const generate = _=>{
     ctx.fillStyle = '#FFF';
     ctx.fillRect(0,0,width,width);
 
-    const text1Canvas = generateTextCanvas(text1,1200,1);
+    const text1Canvas = generateTextCanvas(text1,textFontSize,1);
     const text1GlfxCanvas = generatePerspectiveTextCanvas(text1Canvas);
     ctx.drawImage(
         text1GlfxCanvas,
@@ -138,7 +140,7 @@ const generate = _=>{
     // );
 
     if(text2){
-        const text2Canvas = generateTextCanvas(text2,1000,1);
+        const text2Canvas = generateTextCanvas(text2,textFontSize,1);
         const text2GlfxCanvas = generatePerspectiveTextCanvas(text2Canvas);
         ctx.save();
 
