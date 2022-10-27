@@ -1,8 +1,8 @@
 
 const width = 1200;
 const perspective = 0.15;
-const textFontSize = 1200;
-const xScale = 1;
+const textFontSize = 1000;
+const xScale = 2;
 
 
 

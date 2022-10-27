@@ -12,7 +12,13 @@ a{
     color: inherit;
 }
 h1{
-    font-size: 2.4em;
+    font-size: 56px;
+    margin: 20px 0 14px;
+    color: rgba(0,0,0,0);
+    line-height: 128px;
+    background: no-repeat 50% 50%;
+    background-image: url(logo.svg);
+    background-size: contain;
 }
 .output-box{
     position: relative;
@@ -29,17 +35,17 @@ h1{
         bottom: 0;
         right: 0;
         padding: 4px 10px;
+        font-size: 12px;
         &:before{
             content: '';
             display: block;
-            width: 46px;
-            height: 46px;
+            width: 4em;
+            height: 4em;
             border-radius: 80px;
             box-shadow:0 0 0 1px #000 inset;
         }
         &:after{
-            content: '长按';
-            font-size: 12px;
+            content: '长按存图';
             line-height: 20px;
         }
         opacity: 0;
@@ -62,7 +68,7 @@ h1{
 }
 
 .config-box{
-    padding:4px 8px;
+    padding:10px 8px 4px;
 }
 .label-item{
     padding:4px 0;
@@ -117,10 +123,24 @@ h1{
         box-sizing: border-box;
         width: 100%;
     }
+    .generate-btn{
+        &:disabled{
+            &:before{
+                content: '长按预览图、添加到照片';
+            }
+        }
+    }
 }
-@media (min-width: 400px) {
+@media (min-width: 600px) {
     .long-press-tip{
         display: none;
+    }
+    .generate-btn{
+        &:disabled{
+            &:before{
+                content: '右键预览图、另存成图片';
+            }
+        }
     }
 }
 
