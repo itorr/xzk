@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh_Hans_CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>斜着看生成器 - 神奇海螺生成器</title>
+<link rel="stylesheet" href="document.css">
+</head>
+<body>
+<div class="app">
+    <h1>斜着看生成器</h1>
+    <div class="output-box">
+        <img>
+    </div>
+    <div class="config-box">
+        <div class="label-item">
+            <h5>横向斜着看文字</h5>
+            <input type="text" class="ui-input" 
+                name="text1"
+                placeholder="输入需要斜着看的文字"
+                value="今天是疯狂星期四群里富哥快V我50"
+                maxlength="40"
+                >
+        </div>
+        <div class="label-item">
+            <h5>纵向斜着看文字</h5>
+            <input type="text" class="ui-input" 
+                name="text2"
+                placeholder="纵向"
+                maxlength="40">
+        </div>
+        <div class="label-item">
+            <h5>说明文字</h5>
+            <input type="text" class="ui-input" 
+                name="tip"
+                placeholder="从充电口斜着看">
+        </div>
+    </div>
+    <div class="ctrl-box">
+        <button class="ui-btn">生成斜着看图片</button>
+        <!-- <button class="ui-btn">保存图片</button> -->
+    </div>
+    <blockquote class="tip">
+        长按或右键另存图片
+    </blockquote>
+</div>
+<script src="glfx.js"></script>
+<script src="document.js"></script>
+</body>
+</html>
