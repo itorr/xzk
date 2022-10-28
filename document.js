@@ -31,9 +31,9 @@ const measureText = (ctx,text,fontSize)=>{
     const metrics = ctx.measureText(text);
 
     const width = Math.ceil(metrics.width);
-    const height = (metrics.fontBoundingBoxDescent + metrics.fontBoundingBoxAscent) || fontSize;
+    const height = (metrics.fontBoundingBoxDescent + metrics.fontBoundingBoxAscent) || fontSize * 1.4;
     // || (metrics.actualBoundingBoxDescent + metrics.actualBoundingBoxAscent )
-
+    console.log(metrics,fontSize,height)
     // console.log(metrics)
     return {
         metrics,
@@ -43,6 +43,8 @@ const measureText = (ctx,text,fontSize)=>{
 }
 const textCanvas = document.createElement('canvas');
 canvasBox.appendChild(textCanvas);
+
+const isFirefox = /Firefox/.test(navigator.userAgent);
 const generateTextCanvas = (text,fontSize,isBox)=>{
     const ctx = textCanvas.getContext('2d');
     
@@ -54,14 +56,14 @@ const generateTextCanvas = (text,fontSize,isBox)=>{
         ctx.lineJoin = 'round';
         ctx.textAlign = 'left';
     }
-    textCanvas.style.lineHeight = `${fontSize}px`;
+    // textCanvas.style.lineHeight = `${fontSize}px`;
 
     setCtxConfig(ctx);
     const {
         metrics,
         width,
         height
-    } = measureText(ctx,text,fontSize * xScale);
+    } = measureText(ctx,text,fontSize);
 
     let maxWidth;
 
@@ -73,8 +75,17 @@ const generateTextCanvas = (text,fontSize,isBox)=>{
     textCanvas.height = height//fontSize;//height;
 
     setCtxConfig(ctx);
+    let setTop = height / 2;
 
-    ctx.fillText(text,0,height/2,maxWidth);
+    if(isFirefox){
+        setTop = height * 0.53;
+    }
+
+    ctx.fillText(
+        text,
+        0,setTop,
+        maxWidth
+    );
 
     return textCanvas
     
