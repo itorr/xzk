@@ -1,6 +1,6 @@
 
 const width = 1200;
-const perspective = 0.15;
+const perspective = 0.1;
 const textFontSize = 1000;
 const xScale = 2;
 
@@ -79,11 +79,7 @@ const generateTextCanvas = (text,fontSize,isBox)=>{
     setCtxConfig(ctx);
     let setTop = height / 2;
 
-    if(isFirefox){
-        setTop = height * 0.53;
-    }
-
-
+    // 裁切文字上下白边
     ctx.fillText(
         text,
         0,setTop,
@@ -107,7 +103,8 @@ const generateTextCanvas = (text,fontSize,isBox)=>{
     textCanvas.width = isBox ? maxWidth : width;
     textCanvas.height = max - min; // height//fontSize;//height;
     setCtxConfig(ctx);
-    console.log(min,max);
+    // console.log(min,max);
+
     ctx.fillText(
         text,
         0,setTop - min,
