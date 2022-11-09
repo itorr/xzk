@@ -45,6 +45,7 @@ const textCanvas = document.createElement('canvas');
 canvasBox.appendChild(textCanvas);
 
 const isFirefox = /Firefox/.test(navigator.userAgent);
+const isWindows = /Windows/.test(navigator.userAgent);
 const generateTextCanvas = (text,fontSize,isBox)=>{
     const ctx = textCanvas.getContext('2d');
     
@@ -64,6 +65,7 @@ const generateTextCanvas = (text,fontSize,isBox)=>{
         width,
         height
     } = measureText(ctx,text,fontSize);
+    console.log(measureText(ctx,text,fontSize))
 
     let maxWidth;
 
@@ -81,9 +83,34 @@ const generateTextCanvas = (text,fontSize,isBox)=>{
         setTop = height * 0.53;
     }
 
+
     ctx.fillText(
         text,
         0,setTop,
+        10
+    );
+    const pixel = ctx.getImageData(0,0,textCanvas.width,textCanvas.height)
+    const pixelData = pixel.data;
+    let min = textCanvas.height;
+    let max = 0;
+    for(let y = 0;y<textCanvas.height;y++){
+        let xn = 0;
+        for(let x = 0;x<textCanvas.width;x++){
+            const ii = (y * textCanvas.width + x) * 4;
+            xn += pixelData[ii+3];
+        }
+        if(xn){
+            min = Math.min(y,min);
+            max = Math.max(y,max);
+        }
+    }
+    textCanvas.width = isBox ? maxWidth : width;
+    textCanvas.height = max - min; // height//fontSize;//height;
+    setCtxConfig(ctx);
+    console.log(min,max);
+    ctx.fillText(
+        text,
+        0,setTop - min,
         maxWidth
     );
 
@@ -138,8 +165,8 @@ const generate = _=>{
         0,0,
         text1GlfxCanvas.width,
         text1GlfxCanvas.height,
-        width * 0.2,width * -0.22,
-        width * 0.6, width * 1.21
+        width * 0.2,width * 0.06,
+        width * 0.6, width * 0.77
     );
     // ctx.setTransform(1,0,.2,1,0,0);
     // ctx.drawImage(
@@ -162,8 +189,8 @@ const generate = _=>{
             0,0,
             text2GlfxCanvas.width,
             text2GlfxCanvas.height,
-            width * 0.16,width * -0.22,
-            width * 0.6, width * 1.3
+            width * 0.16,width * 0.1 ,
+            width * 0.6, width * 0.8
         );
         ctx.restore();
     }
@@ -180,9 +207,11 @@ const generate = _=>{
     ctx.lineJoin = 'round';
     ctx.textAlign = 'center';
 
+    let setTop = width * 0.917;
+    if(isWindows) setTop = width * 0.925;
     ctx.fillText(
         tip,
-        width / 2, width * 0.917,
+        width / 2, setTop,
         width * 0.8
     );
     ctx.restore();
