@@ -1,0 +1,30 @@
+{
+  "name": "xzk",
+  "version": "1.0.0",
+  "description": "👀「斜着看生成器」充电口斜着看文字图片生成工具",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itorr/xzk.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "itorr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itorr/xzk/issues"
+  },
+  "files": [
+    "icon.svg"
+  ],
+  "homepage": "https://github.com/itorr/xzk#readme",
+  "devDependencies": {
+    "html-minifier": "^4.0.0",
+    "less": "^4.1.3",
+    "uglify-js": "^3.17.4"
+  }
+}
